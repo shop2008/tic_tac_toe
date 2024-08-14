@@ -1,55 +1,60 @@
 // Get all buttons
-const buttons = document.getElementsByClassName('cell');
+const buttons = document.getElementsByClassName("cell");
 // Initialize the current player
-let currentPlayer = 'X';
+let currentPlayer = "X";
 // Add event listener to each button
 for (let button of buttons) {
-    button.addEventListener('click', function () {
-        // Check if the button is empty
-        if (this.innerText === '') {
-            // Set the button text to the current player
-            this.innerText = currentPlayer;
-            setTimeout(() => {
-                // Check if the current player has won
-                if (checkWinner()) {
-                    alert(`${currentPlayer} wins!`);
-                    // Reset the game
-                    resetGame();
-                } else if (isDraw()) {
-                    alert('It\'s a draw!');
-                    // Reset the game
-                    resetGame();
-                } else {
-                    // Switch the current player
-                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                    // Update the player span
-                    document.getElementById('player').innerText = currentPlayer;
-                }
-            }, 0);
+  button.addEventListener("click", function () {
+    // Check if the button is empty
+    if (this.innerText === "") {
+      // Set the button text to the current player
+      this.innerText = currentPlayer;
+      setTimeout(() => {
+        // Check if the current player has won
+        if (checkWinner()) {
+          alert(`${currentPlayer} wins!`);
+          // Reset the game
+          resetGame();
+        } else if (isDraw()) {
+          alert("It's a draw!");
+          // Reset the game
+          resetGame();
+        } else {
+          // Switch the current player
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+          // Update the player span
+          document.getElementById("player").innerText = currentPlayer;
         }
-    });
+      }, 0);
+    }
+  });
 }
 
 function checkWinner() {
-    // Define the winning combinations
-    const winningCombos = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
-    // Check if any of the winning combinations are met
-    return winningCombos.some(combo => {
-        const [a, b, c] = combo;
-        // Check if the buttons have the same text and are not empty
-        return buttons[a].innerText !== '' &&
-            buttons[a].innerText === buttons[b].innerText &&
-            buttons[a].innerText === buttons[c].innerText;
-    });
+  // Define the winning combinations
+  const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  // Check if any of the winning combinations are met
+  for (let combo of winningCombos) {
+    const [a, b, c] = combo;
+    // Check if the buttons have the same text and are not empty
+    if (
+      buttons[a].innerText !== "" &&
+      buttons[a].innerText === buttons[b].innerText &&
+      buttons[a].innerText === buttons[c].innerText
+    ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // function checkWinner() {
@@ -84,20 +89,20 @@ function checkWinner() {
 // }
 
 function isDraw() {
-    // Check if all buttons are filled
-    for (let button of buttons) {
-        if (button.innerText === '') {
-            return false;
-        }
+  // Check if all buttons are filled
+  for (let button of buttons) {
+    if (button.innerText === "") {
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
 function resetGame() {
-    for (let button of buttons) {
-        button.innerText = '';
-    }
-    currentPlayer = 'X';
-    // Update the player span
-    document.getElementById('player').innerText = currentPlayer;
+  for (let button of buttons) {
+    button.innerText = "";
+  }
+  currentPlayer = "X";
+  // Update the player span
+  document.getElementById("player").innerText = currentPlayer;
 }
